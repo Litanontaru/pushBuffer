@@ -25,15 +25,22 @@ public class Store {
     private final FailLogger failLogger;
 
     public void persist(Object o) {
-        entityManager.persist(o);
+        if (failLogger.isOk()) {
+            entityManager.persist(o);
+        }
     }
 
     public <T> T merge(T t) {
-        return entityManager.merge(t);
+        if (failLogger.isOk()) {
+            return entityManager.merge(t);
+        }
+        return t;
     }
 
     public void remove(Object o) {
-        entityManager.remove(o);
+        if (failLogger.isOk()) {
+            entityManager.remove(o);
+        }
     }
 
     public <T> T find(Class<T> aClass, Object o) {
@@ -77,8 +84,12 @@ public class Store {
     }
 
     public void flush() {
-        entityManager.flush();
+        if (failLogger.isOk()) {
+            entityManager.flush();
+        }
     }
+
+    //--- OTHER METHODS ------------------------------------------------------------------------------------------------
 
     public void setFlushMode(FlushModeType flushModeType) {
         entityManager.setFlushMode(flushModeType);

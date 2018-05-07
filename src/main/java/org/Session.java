@@ -15,6 +15,10 @@ public class Session implements FailLogger, FailExtractor {
         list.add(entityInfo);
     }
 
+    public boolean isOk() {
+        return session.get() == null;
+    }
+
     public List<EntityInfo> extractFails() {
         List<EntityInfo> result = session.get();
         if (result != null) {
