@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class EntityInfo {
-    private final Class entityClass;
-    private final Object id;
+    private final Class domainClass;
+    private final Object domainId;
 }
